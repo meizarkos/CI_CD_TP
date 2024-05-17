@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - checkout
+      - run : |
+        chomd +x gradlew
       - run:
           name: Install OpenJDK 17
           command: |
@@ -19,19 +21,19 @@ jobs:
             sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
             java -version
       - android/run-tests:
-          test-command: sudo chmod +x ./gradlew lint testDebug --continue
+          test-command: sudo ./gradlew lint testDebug --continue
       - run:
           name: Assemble debug build
-          command: sudo chmod +x ./gradlew assembleDebug
+          command: sudo ./gradlew assembleDebug
       - android/start-emulator-and-run-tests:
-          test-command: sudo chmod +x ./gradlew connectedDebugAndroidTest
+          test-command: sudo ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-30;google_apis;x86
 
       # And finally run the release build
       - run:
           name: Assemble release build
           command: |
-            sudo chmod +x ./gradlew assembleRelease
+            sudo ./gradlew assembleRelease
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
