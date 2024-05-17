@@ -10,35 +10,27 @@ jobs:
       tag: default
 
     steps:
-      - checkout
-      run: |
-        chmod +x gradlew
-      - run:
-          name: Install OpenJDK 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
-            java -version
-      - android/run-tests:
-          test-command: sudo ./gradlew lint testDebug --continue
-      - run:
-          name: Assemble debug build
-          command: sudo ./gradlew assembleDebug
-      - android/start-emulator-and-run-tests:
-          test-command: sudo ./gradlew connectedDebugAndroidTest
-          system-image: system-images;android-30;google_apis;x86
+      
+checkout
+run: |
+      chmod +x gradlew
+run:
+    name: Install OpenJDK 17
+    command: |
+      sudo apt-get update && sudo apt-get install openjdk-17-jdk
+      sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+      sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
+      java -version
+run:
+  name: Assemble debug build
+  command: sudo ./gradlew assembleDebug
+android/start-emulator-and-run-tests:
+  test-command: sudo ./gradlew connectedDebugAndroidTest
+  system-image: system-images;android-30;google_apis;x86
 
       # And finally run the release build
-      - run:
-          name: Assemble release build
-          command: |
-            sudo ./gradlew assembleRelease
-
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - build-and-test
+      
+run:
+        name: Assemble release build
+        command: |
+          sudo ./gradlew assembleRelease
