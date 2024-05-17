@@ -19,12 +19,12 @@ jobs:
             sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
             java -version
       - android/run-tests:
-          test-command: chmod +x ./gradlew lint testDebug --continue
+          test-command: ./gradlew lint testDebug --continue
       - run:
           name: Assemble debug build
-          command: chmod +x ./gradlew assembleDebug
+          command: ./gradlew assembleDebug
       - android/start-emulator-and-run-tests:
-          test-command: chmod +x ./gradlew connectedDebugAndroidTest
+          test-command: ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-30;google_apis;x86
 
       # And finally run the release build
