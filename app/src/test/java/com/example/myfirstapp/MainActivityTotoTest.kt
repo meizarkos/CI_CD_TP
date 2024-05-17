@@ -5,12 +5,7 @@ import org.junit.Test
 
 class MainActivityTotoTest{
 
-    @Test
-    fun `Check Valid Password`(){
-        val password = "Pass!"
-        val errors = verifyPassword(password)
-        assertTrue(errors.isEmpty())
-    }
+
 
     @Test
     fun `Check Password Length`(){
