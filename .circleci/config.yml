@@ -10,27 +10,29 @@ jobs:
       tag: default
 
     steps:
-      checkout
-  
-run: |
-      chmod +x gradlew
-run:
-    name: Install OpenJDK 17
-    command: |
-      sudo apt-get update && sudo apt-get install openjdk-17-jdk
-      sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-      sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
-      java -version
-run:
-  name: Assemble debug build
-  command: sudo ./gradlew assembleDebug
-android/start-emulator-and-run-tests:
-  test-command: sudo ./gradlew connectedDebugAndroidTest
-  system-image: system-images;android-30;google_apis;x86
+      - checkout
+      - run:
+          name: Set execute permissions for gradlew
+          command: chmod +x gradlew
+      - run:
+          name: Install OpenJDK 17
+          command: |
+            sudo apt-get update && sudo apt-get install -y openjdk-17-jdk
+            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
+            java -version
+      - run:
+          name: Assemble debug build
+          command: ./gradlew assembleDebug
+      - android/start-emulator-and-run-tests:
+          test-command: ./gradlew connectedDebugAndroidTest
+          system-image: system-images;android-30;google_apis;x86
+      - run:
+          name: Assemble release build
+          command: ./gradlew assembleRelease
 
-      # And finally run the release build
-      
-run:
-        name: Assemble release build
-        command: |
-          sudo ./gradlew assembleRelease
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-and-test
