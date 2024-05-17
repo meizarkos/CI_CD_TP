@@ -10,8 +10,8 @@ jobs:
       tag: default
 
     steps:
-      
-checkout
+      checkout
+  
 run: |
       chmod +x gradlew
 run:
