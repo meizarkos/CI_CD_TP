@@ -11,8 +11,8 @@ jobs:
 
     steps:
       - checkout
-      - run : |
-        chomd +x gradlew
+      run: |
+        chmod +x gradlew
       - run:
           name: Install OpenJDK 17
           command: |
