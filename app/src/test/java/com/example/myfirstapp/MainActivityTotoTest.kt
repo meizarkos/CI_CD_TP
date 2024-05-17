@@ -7,7 +7,7 @@ class MainActivityTotoTest{
 
     @Test
     fun `Check Valid Password`(){
-        val password = "Passw0rd123!"
+        val password = "Pass!"
         val errors = verifyPassword(password)
         assertTrue(errors.isEmpty())
     }

@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 fun verifyPassword(motDePasse: String): List<String> {
@@ -34,8 +36,13 @@ fun verifyPassword(motDePasse: String): List<String> {
 
     // Vérifier au moins un caractère spécial
     val caracteresSpeciaux = "~`!@#\\$%\\^&*\\(\\)-_+=<>?/\\[]\\{}|"
-    if (!Regex(caracteresSpeciaux).containsMatchIn(motDePasse)) {
-        erreurs.add("Le mot de passe mmmm doit contenir au moins un caractère spécial parmi $caracteresSpeciaux.")
+
+
+    val pattern: Pattern = Pattern.compile(caracteresSpeciaux)
+    val matcher: Matcher = pattern.matcher(motDePasse)
+    val passwordMatchesqPattern = matcher.matches()
+    if (!passwordMatchesqPattern) {
+        erreurs.add("Le mot de passe doit contenir au moins un caractère spécial parmi $caracteresSpeciaux.")
     }
 
     return erreurs

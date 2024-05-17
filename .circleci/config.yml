@@ -24,6 +24,8 @@ jobs:
       - run:
           name: Assemble debug build
           command: ./gradlew assembleDebug
+      - android/run-tests:
+          test-command: ./gradlew test
       - android/start-emulator-and-run-tests:
           test-command: ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-30;google_apis;x86
