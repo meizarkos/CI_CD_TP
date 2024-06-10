@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-and-test:
     executor:
-      name: android/android-machine
+      name: android/android-machine 
       tag: default
 
     steps:

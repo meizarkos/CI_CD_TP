@@ -3,7 +3,7 @@ package com.example.myfirstapp
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
-class MainActivityTotoTest{
+class Main2ActivityTotoTest{
 
 
 
